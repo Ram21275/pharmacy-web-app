@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+    <section class="container">
+        <div class="my-5 display-5 fw-bold text-center ls-tight" style="color: hsl(126, 92%, 19%)">
+            <h1>Product List</h1>
+        </div>
+
+        <div class="container py-3">
+            <div id="cat-container" class="row mb-4">
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script>
+        const productTemplate = (p_name) => {
+            const root = document.createElement('div');
+            root.className = "col-lg-4 col-md-6 mb-4";
+            root.setAttribute('p_name', p_name);
+            const in1 = [];
+            for (let index = 0; index < 2; index++) {
+                in1.push(document.createElement('div'));
+            }
+            in1[0].className = "card hover-lift hover-shadow-xl shadow-sm border-0";
+            in1[1].className = "card-body p-4";
+            const h5 = document.createElement('h5');
+            h5.innerText = p_name;
+            in1[1].appendChild(h5);
+            in1[0].appendChild(in1[1]);
+            root.appendChild(in1[0]);
+            const a = document.createElement('a');
+            a.href = "pharmadata/{{data | safe}}" + p_name;
+            a.className = "stretched-link";
+            in1[0].appendChild(a);
+            return root;
+        }
+        
+        fetch("/productdata")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                return data;
+            }).then((data) => {
+                const root = document.getElementById("cat-container");
+                data.forEach(element => {
+                    root.appendChild(productTemplate(element["name"]));
+                });
+            });
+    </script>
+
+</body>
+
+</html>

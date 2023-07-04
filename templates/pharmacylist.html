@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: .8125rem;
+            font-weight: 400;
+            line-height: 1.5385;
+            color: #333;
+            text-align: left;
+            background-color: #f5f5f5;
+        }
+
+        .mt-50 {
+            margin-top: 50px;
+        }
+
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+
+
+        .bg-teal-400 {
+            background-color: #26a69a;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+
+        .fa {
+            color: red;
+        }
+    </style>
+
+
+
+    <div class="container d-flex justify-content-center mt-50 mb-50">
+
+        <div class="row">
+            <div id="p_root" class="col-md-10">
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script>
+            const template = (prod_name, pharma_name, p_price) => {
+            const ram = document.createElement("div");
+            const elem = []
+            for (let i = 0; i < 3; i++) {
+                elem[i] = document.createElement("div");
+            }
+            ram.className = "card card-body mt-3";
+            elem[0].className = "media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row";
+            elem[1].className = "media-body";
+            elem[1].innerHTML = "<h6 class=\"media-title font-weight-semibold\"> \
+                                <a href=\"#\" data-abc=\"true\">"+ prod_name + "</a> \
+                            </h6> \
+                            <ul class=\"list-inline list-inline-dotted mb-0\"> \
+                                <li class=\"list-inline-item\">provided by "+ pharma_name + "</li> \
+                            </ul>";
+            elem[2].className = "mt-3 mt-lg-0 ml-lg-3 text-center";
+            elem[2].innerHTML = "<h3 class=\"mb-0 font-weight-semibold\">" + p_price + "</h3> \
+                    <button type=\"button\" action = \"/addtocart\" class=\"btn btn-warning mt-4 text-white\"><i \
+                            class=\"icon-cart-add mr-2\"></i> Add to cart</button>";
+            elem[0].appendChild(elem[1]); elem[0].appendChild(elem[2]);
+            ram.appendChild(elem[0]);
+            console.log(ram)
+            return ram;
+        }
+        fetch("/pharmadata1/{{data | safe}}")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                return data;
+            }).then((data) => {
+                const root = document.getElementById("p_root");
+                data.forEach(element => {
+                    root.appendChild(template('{{data | safe}}',element['name'],element['price']));
+                });
+            });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+Functioanlities of our DBMS Application:
+
+1.Login/SignUp: Customer will be able to login to his/her profile through the login option available on the home page our website and if the customer doesn't have an account than he can create a new account througg the signUp option available on the Homepage.
+
+2.User will be able to view the name of the all the doctors  by which he/she got diagnosed and the user will also be able to see the speciality of any doctor.
+
+3.Users will be able to view all the pathological labs and in which  paticular lab he/she got tested before.
+
+4.User will be able to view all the medicines available for a particular treatement along with its cost and the rate of that particular medicine at every respective medical store.
+
+5.The user will be able to view his/her profile after login or signup and will be able to view his history of dignosis or the medicines he had purchased for any particular treatement or the reports of any tests through the profile option. 
+
+6. patient_history: Patient can view their history, the prescriptions they had and the appointments with different doctors they had can be viewed.
